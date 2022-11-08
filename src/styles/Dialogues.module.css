@@ -1,0 +1,61 @@
+.dialogues {
+  max-width: 510px;
+  min-height: 100vh;
+
+  border-radius: 15px;
+  margin: 0 auto;
+  text-align: center;
+  border: 2px solid #0e6fef;
+  padding: 0;
+  background: #0e6fef;
+}
+
+.header {
+  max-width: 510px;
+  background: white;
+  min-height: 80px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  align-items: center;
+  border: 3px solid #0e6fef;
+  background: #efecec;
+}
+.logo {
+  width: 50px;
+}
+
+.exit {
+  color: #0e6fef;
+  width: 70px;
+
+  background-color: #ffffff;
+  height: 50px;
+  font-style: normal;
+  background: #efecec;
+  font-size: 18px;
+  border: 0px solid #0e6fef;
+}
+.list {
+  display: block;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.user {
+  display: flex;
+  border: 3px solid #ffffff;
+  height: 60px;
+  width: 100%;
+  margin-top: 20px;
+  border-radius: 10px;
+  background: #efecec;
+  font-size: 20px;
+}
+
+.gamer {
+  width: 50px;
+  margin-right: 5px;
+  border-radius: 50%;
+}

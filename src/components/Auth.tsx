@@ -3,6 +3,7 @@ import logo from "../assets/icon/logo.png";
 
 const Auth = () => {
   return (
+    
     <div className={styles.auth}>
       <div className={styles.auth__logo}>
         <img className={styles.logo} src={logo} />
@@ -20,22 +21,21 @@ const Auth = () => {
         />
         <div className={styles.auth__form_loginText}>Пароль</div>
         <input
-					className={styles.auth__form_passwordInput}
-					//type={!isActivePass ? "password" : "text"}
-					name="password"
-				//	value={loginPayload.password}
-				//	onChange={handleChange}
-					placeholder={'пароль: 123123'}
-				/>
+          className={styles.auth__form_passwordInput}
+          //type={!isActivePass ? "password" : "text"}
+          name="password"
+          //	value={loginPayload.password}
+          //	onChange={handleChange}
+          placeholder={"пароль: 123123"}
+        />
         <div>
-        <button
-					//onClick={handleSubmit}
-					className={styles.auth__form_btn}
-				>
-					Войти
-				</button>
+          <button
+            //onClick={handleSubmit}
+            className={styles.auth__form_btn}
+          >
+            Войти
+          </button>
         </div>
-      
       </form>
     </div>
   );
