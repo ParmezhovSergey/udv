@@ -72,3 +72,6 @@
 .auth__form_btn:focus {
   background: #0c68a5;
 }
+.error {
+  color: red;
+}
