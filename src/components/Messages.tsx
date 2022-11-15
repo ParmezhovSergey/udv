@@ -1,27 +1,54 @@
 import styles from "../styles/Messages.module.css";
 import logo from "../assets/icon/logo.png";
-import { Navigate, NavLink } from "react-router-dom";
+import { Navigate, NavLink, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { removeAuth } from "./store/reducers/ActionCreators";
-import { addMessage } from "./store/reducers/messageSlice";
-import { useState } from "react";
+import { removeAuth, setAuth } from "./store/reducers/ActionCreators";
+import {
+  addMessage,
+  getUserMessage,
+  MessageState,
+} from "./store/reducers/messageSlice";
+import { useEffect, useState } from "react";
+import { IUser } from "../models/User";
 
 const Messages = () => {
   const dispatch = useAppDispatch();
   const { isAuth } = useAppSelector((state) => state.authReducer);
-  const { message } = useAppSelector((state) => state.messageSlice);
-  const [text, setText] = useState<string>("");
+  const { user, isReqMessage } = useAppSelector((state) => state.messageSlice);
+  const [textValue, setTextValue] = useState("");
+  const { id } = useParams();
+  const arrText = id && [...user].filter((a) => a.id === +id);
 
   const handleExit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     dispatch(removeAuth());
   };
   const handleAction = () => {
-    if (text.trim().length) {
-      dispatch(addMessage({ text }));
-      setText("");
+    if (textValue.trim().length && id) {
+      dispatch(addMessage({ textValue: textValue, id: +id }));
+      setTextValue("");
     }
   };
+
+  useEffect(() => {
+    //localStorage.setItem("user", JSON.stringify(user));
+    if (id && isReqMessage) {
+      dispatch(getUserMessage(+id));
+    }
+  }, [user]);
+
+  //   useEffect(() => {
+  //    JSON.parse(localStorage.getItem('user'));
+
+  // }, [user]);
+
+  // useEffect(() => {
+  //   JSON.parse(localStorage.getItem('user'));
+  // }, [user]);
+
+  useEffect(() => {
+    dispatch(setAuth());
+  }, []);
 
   if (!isAuth) {
     return <Navigate to="/auth" />;
@@ -42,15 +69,19 @@ const Messages = () => {
         </NavLink>
       </div>
       <div className={styles.list}>
-        {message.map((m: any) => (
-          <div>{m.text}</div>
-        ))}
+        {arrText &&
+          arrText.map((m: any) => (
+            <div >
+              <div className={styles.text} key={m.id}>{m.text}</div>
+              
+            </div>
+          ))}
       </div>
       <div className={styles.send}>
         <input
           className={styles.input}
-          value={text}
-          onChange={(e) => setText(e.target.value)}
+          value={textValue}
+          onChange={(e) => setTextValue(e.target.value)}
           placeholder={"Введите сообщение"}
         />
         <button className={styles.sendMessage} onClick={handleAction}>

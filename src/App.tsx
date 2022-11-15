@@ -9,9 +9,8 @@ function App() {
   return (
     <Routes>
       <Route path="/udv" element={<Dialogues />} />
+      <Route path="/message/:id/:name" element={<Messages />} />
       <Route path="/auth" element={<Auth />} />
-      <Route path="/messages" element={<Messages />} />
-      
     </Routes>
   );
 }

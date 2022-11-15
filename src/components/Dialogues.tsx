@@ -5,23 +5,50 @@ import hacker from "../assets/icon/hacker.png";
 import user from "../assets/icon/user.png";
 import { Navigate, NavLink } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { removeAuth } from "./store/reducers/ActionCreators";
-import { getUserMessage } from "./store/reducers/messageSlice";
+import { removeAuth, setAuth } from "./store/reducers/ActionCreators";
 import { IUser } from "../models/User";
 import UsersList from "./UsersList";
+import { useEffect, useState } from "react";
 
 const Dialogues = () => {
   const dispatch = useAppDispatch();
   const { isAuth, error } = useAppSelector((state) => state.authReducer);
   const { user } = useAppSelector((state) => state.messageSlice);
+  const  [userData, setUserData]=useState<IUser[]>()
+
+  
+  //   const [items, setItems] = useState(user);
+
+  // useEffect(() => {
+  //   localStorage.setItem('items', JSON.stringify(items));
+  // }, [items]);
+  //localStorage.setItem("user", JSON.stringify(user));
 
   const handleExit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     dispatch(removeAuth());
   };
 
-  const Users = user.map((p: IUser) => (
-    <UsersList key={p.id} id={p.id} name={p.name} />
+  // const data = dataUser && dataUser.length ? JSON.parse(dataUser) : user;
+  
+  
+
+  useEffect(() => {
+    const dataUser = localStorage.getItem("user");
+    
+    if (dataUser) {
+      setUserData(JSON.parse(dataUser))
+    }  else {
+      setUserData(user)
+    }
+  }, [user]);
+
+  useEffect(() => {
+    dispatch(setAuth());
+  }, []);
+
+  const Users = userData && userData.map((p: IUser) => (
+    <UsersList key={p.id} id={p.id} name={p.name} text={p.text} />
   ));
 
   if (!isAuth) {
@@ -37,7 +64,7 @@ const Dialogues = () => {
           Выйти
         </button>
       </div>
-      <div className={styles.list}>{<div>{Users}</div>}</div>
+      <div className={styles.list}>{Users}</div>
     </div>
   );
 };

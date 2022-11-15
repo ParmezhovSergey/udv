@@ -1,67 +1,73 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUser } from "../../../models/User";
 
-interface MessageState {
-  message: any;
+export interface MessageState {
+  message: string[];
   user: IUser[];
+  isReqMessage: boolean;
 }
 
 const initialState: MessageState = {
-  message: [
-    {
-      userId: 1,
-      text: [],
-    },
-    {
-      userId: 2,
-      text: [],
-    },
-    {
-      userId: 3,
-      text: [],
-    },
-  ],
+  //   message: [
+  //     {
+  //       userId: 1,
+  //       text: ['hgjh'],
+  //     },
+  //     {
+  //       userId: 2,
+  //       text: [],
+  //     },
+  //     {
+  //       userId: 3,
+  //       text: [],
+  //     },
+  //   ],
+  message: [],
   user: [
     {
-      id: 1,
+      id: 0,
       name: "Andrew",
+      text: ["gbnth"],
+    },
+    {
+      id: 1,
+      name: "Oleg",
+      text: [],
     },
     {
       id: 2,
-      name: "Oleg",
-    },
-    {
-      id: 3,
       name: "Anna",
+      text: [],
     },
   ],
+  isReqMessage: false,
 };
 
 const messageSlice = createSlice({
   name: "message",
   initialState,
   reducers: {
-    addMessage(state, action) {
-      //   state.message.push({
-      // id: new Date().toISOString(),
-      // text: action.payload.text,
-      //completed: false,
-      // });
-      state.message = [
-        ...state.message.map((s: any) => {
-          if (s.userId === action.payload.id) {
-            return { ...s, text: [...s.text, action.payload.text] };
+    addMessage(state, action: PayloadAction<{ textValue: string; id: number }>) {
+      state.user = [
+        ...state.user.map((s: IUser) => {
+          if (s.id === action.payload.id) {
+            return { ...s, text: [...s.text, action.payload.textValue] };
           }
           return s;
         }),
       ];
     },
     getUserMessage(state, action: PayloadAction<number>) {
-      state.message = [
-        ...state.message.filter((a: any) => a.userId === action.payload),
-        
+      state.isReqMessage = true;
+      state.user = [
+        ...state.user.map((a: IUser) => {
+          if (a.id === action.payload) {
+            return { ...a };
+          }
+          return a;
+        }),
+        //...state.user.filter((a: any) => a.userId === action.payload),
       ];
-      
     },
   },
 });

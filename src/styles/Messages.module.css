@@ -1,7 +1,6 @@
 .dialogues {
   max-width: 510px;
   min-height: 100vh;
-
   border-radius: 15px;
   margin: 0 auto;
   text-align: center;
@@ -38,17 +37,24 @@
   border: 0px solid #3087f8;
 }
 .list {
-  display: block;
+  max-width: 490px;
+  border: 1px solid red;
   margin-left: 5px;
   margin-right: 5px;
   background: #efecec;
   min-height: 100%;
   border-radius: 15px;
   min-height: calc(100vh - 200px);
-  
   text-align: left;
   padding-left: 10px;
   padding-top: 5px;
+}
+
+.text {
+  border: 1px solid #3087f8;
+  min-height: 100%;
+  width: 97%;
+  word-wrap: break-word;
 }
 .back {
   color: #ffffff;
@@ -64,18 +70,15 @@
   display: flex;
   height: 30px;
   min-width: 220px;
-  
+
   margin-right: 10px;
   align-items: flex-end;
   border: 0px solid #3087f8;
 }
 .send {
- 
   margin-left: 5px;
   margin-right: 10px;
-  
   display: flex;
-  
   height: 50px;
   align-items: center;
   border: 2px solid #3087f8;
