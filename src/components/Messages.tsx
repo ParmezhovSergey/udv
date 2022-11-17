@@ -3,13 +3,8 @@ import logo from "../assets/icon/logo.png";
 import { Navigate, NavLink, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { removeAuth, setAuth } from "./store/reducers/ActionCreators";
-import {
-  addMessage,
-  getUserMessage,
-  MessageState,
-} from "./store/reducers/messageSlice";
+import { addMessage, getUserMessage } from "./store/reducers/messageSlice";
 import { useEffect, useState } from "react";
-import { IUser } from "../models/User";
 
 const Messages = () => {
   const dispatch = useAppDispatch();
@@ -17,6 +12,7 @@ const Messages = () => {
   const { user, isReqMessage } = useAppSelector((state) => state.messageSlice);
   const [textValue, setTextValue] = useState("");
   const { id } = useParams();
+
   const arrText = id && [...user].filter((a) => a.id === +id);
 
   const handleExit = (e: React.MouseEvent<HTMLElement>) => {
@@ -31,20 +27,11 @@ const Messages = () => {
   };
 
   useEffect(() => {
-    //localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(user));
     if (id && isReqMessage) {
       dispatch(getUserMessage(+id));
     }
   }, [user]);
-
-  //   useEffect(() => {
-  //    JSON.parse(localStorage.getItem('user'));
-
-  // }, [user]);
-
-  // useEffect(() => {
-  //   JSON.parse(localStorage.getItem('user'));
-  // }, [user]);
 
   useEffect(() => {
     dispatch(setAuth());
@@ -70,12 +57,13 @@ const Messages = () => {
       </div>
       <div className={styles.list}>
         {arrText &&
-          arrText.map((m: any) => (
-            <div >
-              <div className={styles.text} key={m.id}>{m.text}</div>
-              
-            </div>
-          ))}
+          arrText.map((m: any) =>
+            m.text.map((f: string) => (
+              <div className={styles.text} key={f}>
+                {f}
+              </div>
+            ))
+          )}
       </div>
       <div className={styles.send}>
         <input

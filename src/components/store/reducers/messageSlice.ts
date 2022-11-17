@@ -2,32 +2,16 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUser } from "../../../models/User";
 
 export interface MessageState {
-  message: string[];
   user: IUser[];
   isReqMessage: boolean;
 }
 
 const initialState: MessageState = {
-  //   message: [
-  //     {
-  //       userId: 1,
-  //       text: ['hgjh'],
-  //     },
-  //     {
-  //       userId: 2,
-  //       text: [],
-  //     },
-  //     {
-  //       userId: 3,
-  //       text: [],
-  //     },
-  //   ],
-  message: [],
   user: [
     {
       id: 0,
       name: "Andrew",
-      text: ["gbnth"],
+      text: [],
     },
     {
       id: 1,
@@ -47,9 +31,15 @@ const messageSlice = createSlice({
   name: "message",
   initialState,
   reducers: {
-    addMessage(state, action: PayloadAction<{ textValue: string; id: number }>) {
+    setUsersData(state, action: PayloadAction<IUser[]>) {
+      state.user = action.payload;
+    },
+    addMessage(
+      state,
+      action: PayloadAction<{ textValue: string; id: number }>
+    ) {
       state.user = [
-        ...state.user.map((s: IUser) => {
+        ...state.user.map((s: any) => {
           if (s.id === action.payload.id) {
             return { ...s, text: [...s.text, action.payload.textValue] };
           }
@@ -66,10 +56,11 @@ const messageSlice = createSlice({
           }
           return a;
         }),
-        //...state.user.filter((a: any) => a.userId === action.payload),
       ];
     },
   },
 });
-export const { addMessage, getUserMessage } = messageSlice.actions;
+
+export const { addMessage, getUserMessage, setUsersData } =
+  messageSlice.actions;
 export default messageSlice.reducer;

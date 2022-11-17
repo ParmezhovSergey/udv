@@ -5,30 +5,28 @@ interface AuthState {
   user: IUser[];
   isAuth: boolean;
   error: string;
-  
 }
 
 const initialState: AuthState = {
   user: [],
   isAuth: false,
   error: "",
-  
 };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-  	authSuccess(state) {
-			state.isAuth = true;
-		},
-		authUnSubscribe(state) {
-			state.isAuth = false;
-		}, 
+    authSuccess(state) {
+      state.isAuth = true;
+    },
+    authUnSubscribe(state) {
+      state.isAuth = false;
+    },
     authFetchingError(state, action: PayloadAction<string>) {
-			state.isAuth = false;
-			state.error = action.payload;
-		},
+      state.isAuth = false;
+      state.error = action.payload;
+    },
   },
 });
 

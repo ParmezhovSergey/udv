@@ -1,55 +1,42 @@
 import styles from "../styles/Dialogues.module.css";
 import logo from "../assets/icon/logo.png";
-import gamer from "../assets/icon/gamer.png";
-import hacker from "../assets/icon/hacker.png";
-import user from "../assets/icon/user.png";
-import { Navigate, NavLink } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { removeAuth, setAuth } from "./store/reducers/ActionCreators";
 import { IUser } from "../models/User";
 import UsersList from "./UsersList";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { setUsersData } from "./store/reducers/messageSlice";
 
 const Dialogues = () => {
   const dispatch = useAppDispatch();
-  const { isAuth, error } = useAppSelector((state) => state.authReducer);
+  const { isAuth } = useAppSelector((state) => state.authReducer);
   const { user } = useAppSelector((state) => state.messageSlice);
-  const  [userData, setUserData]=useState<IUser[]>()
-
-  
-  //   const [items, setItems] = useState(user);
-
-  // useEffect(() => {
-  //   localStorage.setItem('items', JSON.stringify(items));
-  // }, [items]);
-  //localStorage.setItem("user", JSON.stringify(user));
 
   const handleExit = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault();
     dispatch(removeAuth());
   };
 
-  // const data = dataUser && dataUser.length ? JSON.parse(dataUser) : user;
-  
-  
-
   useEffect(() => {
     const dataUser = localStorage.getItem("user");
-    
+
     if (dataUser) {
-      setUserData(JSON.parse(dataUser))
-    }  else {
-      setUserData(user)
+      const arrDataUser = JSON.parse(dataUser);
+      console.log(arrDataUser);
+      dispatch(setUsersData(JSON.parse(dataUser)));
     }
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     dispatch(setAuth());
   }, []);
 
-  const Users = userData && userData.map((p: IUser) => (
-    <UsersList key={p.id} id={p.id} name={p.name} text={p.text} />
-  ));
+  const Users =
+    user &&
+    user.map((p: IUser) => (
+      <UsersList key={p.id} id={p.id} name={p.name} text={p.text} />
+    ));
 
   if (!isAuth) {
     return <Navigate to="/auth" />;

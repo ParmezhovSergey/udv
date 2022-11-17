@@ -38,7 +38,6 @@
 }
 .list {
   max-width: 490px;
-  border: 1px solid red;
   margin-left: 5px;
   margin-right: 5px;
   background: #efecec;
@@ -48,6 +47,7 @@
   text-align: left;
   padding-left: 10px;
   padding-top: 5px;
+  
 }
 
 .text {
@@ -55,6 +55,7 @@
   min-height: 100%;
   width: 97%;
   word-wrap: break-word;
+  display: flex;
 }
 .back {
   color: #ffffff;
