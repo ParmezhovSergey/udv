@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/udv/static/css/main.c5434816.css",
+    "main.js": "/udv/static/js/main.bb3728fc.js",
+    "static/media/logo.png": "/udv/static/media/logo.5364d733f834f5bac80a.png",
+    "static/media/hacker.png": "/udv/static/media/hacker.8722ca4b7ed9fbc19cc8.png",
+    "index.html": "/udv/index.html",
+    "main.c5434816.css.map": "/udv/static/css/main.c5434816.css.map",
+    "main.bb3728fc.js.map": "/udv/static/js/main.bb3728fc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c5434816.css",
+    "static/js/main.bb3728fc.js"
+  ]
+}
